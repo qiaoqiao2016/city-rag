@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout, Space, Input, Badge, Popover, Switch, Cascader, Button, Tooltip } from 'antd';
 import {
   BellOutlined,
@@ -9,10 +9,18 @@ import {
 } from '@ant-design/icons';
 import { useAlertStore } from '@/stores/alertStore';
 import { useNavigate } from 'react-router-dom';
+import apiClient from '@/api/client';
 
 const { Header } = Layout;
 
-const regionOptions = [
+interface RegionOption {
+  value: string;
+  label: string;
+  children?: RegionOption[];
+  isLeaf?: boolean;
+}
+
+const defaultRegionOptions: RegionOption[] = [
   {
     value: 'haidian',
     label: '海淀区',
@@ -21,8 +29,8 @@ const regionOptions = [
         value: 'zhongguancun',
         label: '中关村街道',
         children: [
-          { value: 'huayuan', label: '华苑社区' },
-          { value: 'keji', label: '科技园社区' }
+          { value: 'huayuan', label: '华苑社区', isLeaf: true },
+          { value: 'keji', label: '科技园社区', isLeaf: true }
         ]
       }
     ]
@@ -35,8 +43,8 @@ const regionOptions = [
         value: 'guomao',
         label: '国贸街道',
         children: [
-          { value: 'jinsong', label: '劲松社区' },
-          { value: 'jianguomen', label: '建国门社区' }
+          { value: 'jinsong', label: '劲松社区', isLeaf: true },
+          { value: 'jianguomen', label: '建国门社区', isLeaf: true }
         ]
       }
     ]
@@ -52,8 +60,22 @@ const layerList = [
 
 const TopToolbar: React.FC = () => {
   const [fullscreen, setFullscreen] = React.useState(false);
+  const [regionOptions, setRegionOptions] = useState<RegionOption[]>(defaultRegionOptions);
   const unreadCount = useAlertStore((s) => s.unreadCount);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // 尝试从 API 动态加载区域数据，失败则使用静态数据
+    apiClient.get('/api/v1/regions')
+      .then((data: RegionOption[]) => {
+        if (data && data.length > 0) {
+          setRegionOptions(data);
+        }
+      })
+      .catch(() => {
+        // 使用静态默认数据
+      });
+  }, []);
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {

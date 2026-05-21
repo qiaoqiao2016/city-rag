@@ -40,9 +40,9 @@ const DetailPanel: React.FC = () => {
             <Descriptions.Item label="所属区域">{feature.district || '--'}</Descriptions.Item>
             <Descriptions.Item label="街道">{feature.street || '--'}</Descriptions.Item>
             <Descriptions.Item label="楼层数">{feature.floorCount ?? '--'}</Descriptions.Item>
-            <Descriptions.Item label="总面积">{feature.totalArea ? ${feature.totalArea} m² : '--'}</Descriptions.Item>
+            <Descriptions.Item label="总面积">{feature.totalArea ? `${feature.totalArea} m²` : '--'}</Descriptions.Item>
             <Descriptions.Item label="使用类型">{feature.useType || '--'}</Descriptions.Item>
-            <Descriptions.Item label="入住率">{feature.occupancyRate != null ? ${feature.occupancyRate}% : '--'}</Descriptions.Item>
+            <Descriptions.Item label="入住率">{feature.occupancyRate != null ? `${feature.occupancyRate}%` : '--'}</Descriptions.Item>
           </Descriptions>
         </TabPane>
         <TabPane tab="关联数据" key="related">

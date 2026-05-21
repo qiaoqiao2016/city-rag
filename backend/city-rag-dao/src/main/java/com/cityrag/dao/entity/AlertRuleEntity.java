@@ -30,7 +30,6 @@ public class AlertRuleEntity {
     private String mutePeriods;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-}
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -62,4 +61,5 @@ public class AlertRuleEntity {
         return MAPPER.readValue(this.conditions,
                 new TypeReference<List<Map<String, Object>>>() {});
     }
+}
 

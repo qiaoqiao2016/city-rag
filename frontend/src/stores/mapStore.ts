@@ -1,4 +1,5 @@
 ﻿import { create } from 'zustand';
+import * as Cesium from 'cesium';
 
 export interface MapStore {
   viewer: any | null;
@@ -29,7 +30,11 @@ export const useMapStore = create<MapStore>((set, get) => ({
   flyTo: (coords, zoom) => {
     const { viewer } = get();
     if (viewer) {
-      viewer.flyTo(coords, zoom);
+      const [lng, lat] = coords;
+      const height = 10000000 / Math.pow(2, zoom);
+      viewer.camera.flyTo({
+        destination: Cesium.Cartesian3.fromDegrees(lng, lat, Math.max(height, 500))
+      });
     }
   }
 }));

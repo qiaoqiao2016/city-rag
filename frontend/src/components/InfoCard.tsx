@@ -2,6 +2,10 @@
 import { Card, Tag, Button, Space } from 'antd';
 import {
   HomeOutlined,
+  CarOutlined,
+  SafetyOutlined,
+  EnvironmentOutlined,
+  TeamOutlined,
   ClockCircleOutlined,
   DatabaseOutlined
 } from '@ant-design/icons';
@@ -10,10 +14,10 @@ import { useUIStore } from '@/stores/uiStore';
 
 const resourceTypeMap: Record<string, { label: string; color: string; icon: React.ReactNode }> = {
   building: { label: '建筑资源', color: '#1890ff', icon: <HomeOutlined /> },
-  municipal: { label: '市政资源', color: '#52c41a', icon: <HomeOutlined /> },
-  security: { label: '安防资源', color: '#faad14', icon: <HomeOutlined /> },
-  ecology: { label: '生态资源', color: '#13c2c2', icon: <HomeOutlined /> },
-  population: { label: '人口与网格', color: '#722ed1', icon: <HomeOutlined /> }
+  municipal: { label: '市政资源', color: '#52c41a', icon: <CarOutlined /> },
+  security: { label: '安防资源', color: '#faad14', icon: <SafetyOutlined /> },
+  ecology: { label: '生态资源', color: '#13c2c2', icon: <EnvironmentOutlined /> },
+  population: { label: '人口与网格', color: '#722ed1', icon: <TeamOutlined /> }
 };
 
 const InfoCard: React.FC = () => {
